@@ -14,7 +14,16 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@jira/database-repositories": [
+        "libs/database-repositories/src/index.ts"
+      ],
+      "@jira/dead-letter-queue": ["libs/dead-letter-queue/src/index.ts"],
+      "@jira/emails": ["libs/emails/src/index.ts"],
+      "@jira/utils": ["libs/utils/src/index.ts"]
+    },
+    "strictPropertyInitialization": false,
+    "esModuleInterop": true
   },
   "exclude": ["node_modules", "tmp"]
 }

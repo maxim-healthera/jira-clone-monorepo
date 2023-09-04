@@ -1,0 +1,6 @@
+nx g @nx/nest:lib my-nest-lib
+nx g @nx/nest:app my-nest-app
+nx serve my-nest-app
+nx run-many --parallel --target=serve --projects=core,emails-service
+nx g @nx/workspace:remove my-feature-lib
+nx g @nx/workspace:remove my-feature-lib

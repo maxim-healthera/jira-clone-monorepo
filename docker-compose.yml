@@ -1,0 +1,44 @@
+version: "2.8"
+
+include:
+  - ./docker/kafka.yml
+  - ./docker/mongo.yml
+
+services:
+  core:
+    container_name: jira-core
+    build:
+      context: ./
+      dockerfile: ./apps/core/Dockerfile
+      target: production
+    image: jira-core
+    ports:
+      - 3000:3000
+    env_file: 
+      - ./docker/env/core/.env.prod
+    restart: on-failure
+    depends_on:
+      kafka1:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+
+  emails-service:
+    container_name: jira-emails-service
+    build:
+      context: ./
+      dockerfile: ./apps/emails-service/Dockerfile
+      target: production
+    image: jira-emails-service
+    env_file: 
+      - ./docker/env/emails-service/.env.prod
+    restart: on-failure
+    depends_on:
+      kafka1:
+        condition: service_healthy
+        # restart: true
+      mongodb:
+        condition: service_healthy
+        # restart: true
+      # - kafka1
+      # - mongodb
